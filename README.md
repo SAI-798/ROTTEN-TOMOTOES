@@ -23,4 +23,4 @@ This repository contains a Python-based data analytics project that automates th
 
 **Author**
 *   **Sai Lakshmi Rajulapati**
-*   GitHub: [Sai-A5](https://github.com/Sai-A5)
+*   GitHub: https://github.com/Sai-A5
