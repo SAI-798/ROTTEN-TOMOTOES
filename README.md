@@ -1,6 +1,6 @@
 # 🍅 Rotten Tomatoes Web Scraper & Dataset Analyzer
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rotten_logo.svg" alt="Rotten Tomatoes Logo" width="200" />
+  <img src="rotten_logo.png" alt="Rotten Tomatoes Logo" width="80%" style="max-height: 150px; object-fit: cover;" />
 </p>
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -74,3 +74,23 @@ button = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler"))
 )
 button.click()
+```
+### 2. Load & Analyze Scraped Dataset
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the scraped data from the repository
+df = pd.read_csv('rotten_tomatoes_700.csv')
+
+# Display basic dataset summary
+print(f"Total Rows Scraped: {len(df)}")
+df.head() 
+```
+---
+
+### ⭐ Support
+
+If you found this project helpful, please consider giving it a **Star** ⭐️ on GitHub!
