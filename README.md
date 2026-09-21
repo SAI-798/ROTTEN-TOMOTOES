@@ -1,26 +1,73 @@
-<div align="center">
-  <h1>🍅 Rotten Tomatoes Data Scraping & EDA</h1>
-  <p><i>An end-to-end data pipeline from web scraping to statistical hypothesis testing.</i></p>
-</div>
+# 🍅 Rotten Tomatoes Web Scraper & Dataset Analyzer
 
-**Project Overview**
-This repository contains a Python-based data analytics project that automates the extraction of movie data from Rotten Tomatoes and performs in-depth Exploratory Data Analysis (EDA)[cite: 9]. The complete pipeline successfully extracts, cleans, and processes 1,500 distinct movie records[cite: 7, 8].
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Selenium](https://img.shields.io/badge/Selenium-4.0%2B-43B02A?style=for-the-badge&logo=selenium&logoColor=white)](https://www.selenium.dev/)
+[![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458.svg?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Status](https://img.shields.io/badge/Status-Completed-success.svg?style=for-the-badge)]()
 
-**Tech Stack**
-*   **Web Scraping:** Python, Selenium WebDriver[cite: 9]
-*   **Data Manipulation:** Pandas, NumPy[cite: 7, 8]
-*   **Visualization:** Matplotlib, Seaborn[cite: 3, 4]
-*   **Statistical Analysis:** SciPy[cite: 1]
+---
 
-**Core Workflow & Features**
+## 📌 Project Overview
 
-*   **Automated Data Extraction:** Navigates the Rotten Tomatoes interface to systematically scrape `Title`, `Year`, `Critics_Score`, `Cast`, and `Image_Link` while handling dynamic DOM elements, ultimately exporting 1,500 records to a structured DataFrame[cite: 7, 8, 9].
-*   **Data Cleaning:** Addresses null values by labeling missing cast members as "Unknown" and imputing missing critic scores with the dataset's calculated median of 83.0%[cite: 6].
-*   **Feature Engineering:** Segments titles into a new `Score_Category` consisting of **HIT** (>= 75%), **Average** (60-74%), and **Below Average** (< 60%)[cite: 5].
-*   **Univariate & Bivariate Analysis:** Includes histograms for movie release years, pie charts detailing score distributions (revealing a 90% HIT rate), scatter plots evaluating critics' scores over time, and a ranking of top actors by average score[cite: 3, 4].
-*   **Multivariate Analysis:** Features a comprehensive correlation heatmap comparing numeric variables such as `Year`, `Decade`, `Score_Numeric`, `Cast_Count`, and `Title_Length`[cite: 2].
-*   **Hypothesis Testing:** Performs Chi-Square contingency testing (p-value: 0.254), which fails to reject the null hypothesis, indicating no significant statistical association between a movie's release decade and its categorical score[cite: 1, 2]. Additionally, utilizes ANOVA testing across groups, yielding an F-statistic of 2.57[cite: 1].
+This project is a end-to-end data pipeline built in Python to extract, clean, process, and analyze movie data from **Rotten Tomatoes**.
 
-**Author**
-*   **Sai Lakshmi Rajulapati**
-*   GitHub: https://github.com/Sai-A5
+Using **Selenium**, the scraper navigates through web controls, handles dynamic custom elements (Shadow DOM), accepts cookie consent popups, and scrapes **1,500+ records** spanning across multiple paginated search results. The scraped dataset is then cleaned, imputed, categorized, and analyzed using **Pandas**, **NumPy**, **Matplotlib**, and **Seaborn**.
+
+---
+
+## ✨ Key Features & Capabilities
+
+* 🕵️ **Dynamic Web Scraping:** Uses Selenium WebDriver to interact with live UI elements, search boxes, pagination buttons, and cookie banners.
+* 🌑 **Shadow DOM Extraction:** Extracts embedded metadata like production release years, critics scores, and cast lists located inside Custom Web Components / Shadow Roots using JavaScript execution.
+* 🧹 **Data Cleaning & Imputation:** Handles missing values across dataset attributes using standard techniques (e.g., median score imputation).
+* 📊 **Categorization & Analytics:** Converts raw text metric scores (`%`) into numerical values and categorizes movie performance (`HIT (>=75%)` vs `Below Average (<60%)`).
+* 📁 **Automated Export:** Exports the clean dataset into a structured CSV file (`rotten_tomatoes_movies.csv`).
+
+---
+
+## 🛠️ Tech Stack & Dependencies
+
+* **Language:** Python 3.x
+* **Browser Automation:** `selenium`
+* **Data Manipulation:** `pandas`, `numpy`
+* **Visualization:** `matplotlib`, `seaborn`
+* **Environment:** Jupyter Notebook / Google Colab
+
+---
+
+## 📂 Dataset Schema
+
+The output dataset (`rotten_tomatoes_movies.csv`) contains the following schema:
+
+| Column Name | Data Type | Description |
+| :--- | :--- | :--- |
+| `Title` | String | Title of the movie / media item |
+| `Year` | String / Int | Release year (e.g., `2026`, `2001`) |
+| `Critics_Score` | String | Original critics percentage score on Rotten Tomatoes |
+| `Cast` | String | Top cast members (or `Unknown` if missing) |
+| `Image_Link` | String | URL pointer to the thumbnail image poster |
+| `Score_Numeric` | Float | Clean numerical representation of critics score |
+| `Score_Category`| Categorical| Classified metric grade (`HIT (>=75%)`, `Below Average (<60%)`, etc.) |
+
+---
+
+## 🚀 Step-by-Step Workflow
+
+### 1. Browser Initialization & Cookie Acceptance
+```python
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+options = Options()
+options.add_argument("--start-maximized")
+driver = webdriver.Chrome(options=options)
+
+# Navigate to URL & accept cookies
+driver.get('[https://www.rottentomatoes.com/](https://www.rottentomatoes.com/)')
+button = WebDriverWait(driver, 10).until(
+    EC.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler"))
+)
+button.click()
