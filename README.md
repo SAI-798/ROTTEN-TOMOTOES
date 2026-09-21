@@ -1,4 +1,7 @@
 # 🍅 Rotten Tomatoes Web Scraper & Dataset Analyzer
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rotten_logo.svg" alt="Rotten Tomatoes Logo" width="200" />
+</p>
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Selenium](https://img.shields.io/badge/Selenium-4.0%2B-43B02A?style=for-the-badge&logo=selenium&logoColor=white)](https://www.selenium.dev/)
